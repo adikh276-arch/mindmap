@@ -181,7 +181,7 @@
     <!-- ========================================== -->
     <!-- NEW HLD / LLD SECTION                      -->
     <!-- ========================================== -->
-    
+
     <h1>High-Level & Low-Level Design (Hybrid Config)</h1>
 
     <!-- HLD 1 -->
@@ -189,36 +189,36 @@
         <h2>5. HLD: System Ecosystem</h2>
         <p>Hybrid is a service extension, not a new module.</p>
         <div class="mermaid">
-graph LR
-    subgraph "Core Ecosystem"
-    PATIENT[Patient Node]
-    DOCTOR[Doctor Node]
-    CORE[PhysioMantra Core Platform]
-    end
+            flowchart LR
+            subgraph Core["Core Ecosystem"]
+            PATIENT[Patient Node]
+            DOCTOR[Doctor Node]
+            CORE[PhysioMantra Core Platform]
+            end
 
-    subgraph "Hybrid Extension Services"
-    DISCOVERY[Provider Discovery Service]
-    MATCHING[Geo-Spatial Matching Engine]
-    end
+            subgraph Extensions["Hybrid Extension Services"]
+            DISCOVERY[Provider Discovery Service]
+            MATCHING[Geo-Spatial Matching Engine]
+            end
 
-    subgraph "Execution Layer"
-    INT_PROV[Internal Provider<br/>(Salaried)]
-    EXT_PROV[External Provider<br/>(Marketplace)]
-    end
+            subgraph Execution["Execution Layer"]
+            INT_PROV["Internal Provider<br />(Salaried)"]
+            EXT_PROV["External Provider<br />(Marketplace)"]
+            end
 
-    PATIENT -- 1. Books Consult --> CORE
-    CORE -- 2. Assigns --> DOCTOR
-    DOCTOR -- 3. Prescribes Hybrid Plan --> CORE
-    
-    CORE -- 4. Query Location --> DISCOVERY
-    DISCOVERY -- 5. Filter < 10km --> MATCHING
-    MATCHING -- 6. Returns Options --> CORE
-    
-    CORE -- 7. Assigns --> INT_PROV
-    CORE -- 7. Assigns --> EXT_PROV
-    
-    INT_PROV -- 8. Executes & Logs --> CORE
-    EXT_PROV -- 8. Executes & Logs --> CORE
+            PATIENT -- 1. Books Consult --> CORE
+            CORE -- 2. Assigns --> DOCTOR
+            DOCTOR -- 3. Prescribes Hybrid Plan --> CORE
+
+            CORE -- 4. Query Location --> DISCOVERY
+            DISCOVERY -- 5. Filter < 10km --> MATCHING
+                MATCHING -- 6. Returns Options --> CORE
+
+                CORE -- 7. Assigns --> INT_PROV
+                CORE -- 7. Assigns --> EXT_PROV
+
+                INT_PROV -- 8. Executes & Logs --> CORE
+                EXT_PROV -- 8. Executes & Logs --> CORE
         </div>
     </div>
 
@@ -227,30 +227,28 @@ graph LR
         <h2>6. HLD: Unified Booking Flow</h2>
         <p>Single entry point. Execution forks only after Diagnosis.</p>
         <div class="mermaid">
-flowchart TD
-    A([Patient Entry]) --> B[Book Online Consultation]
-    B --> C[Doctor Diagnosis & Plan Creation]
-    C --> D{Execution Mode?}
-    
-    D -->|Online Only| E[Video Prescriptions Assigned]
-    E --> F[Patient Self-Executes]
-    
-    D -->|Hybrid Care| G[Geo-Location Check]
-    G --> H{Provider Available < 10km?}
-    
-    H -->|No| I[Fallback to Online Only]
-    H -->|Yes| J[Display Provider Options]
-    
-    J --> K{Select Provider Type}
-    K -->|Internal| L[Fixed Price Booking]
-    K -->|External| M[Marketplace Pricing / Negotiation]
-    
-    L --> N[Hybrid Session Scheduled]
-    M --> N
-    
-    N --> O[Provider Visits Home]
-    O --> P[Supervised Execution Loop]
-    P --> Q[Data Sync to Doctor Dashboard]
+            flowchart TD
+            A([Patient Entry]) --> B[Book Online Consultation]
+            B --> C[Doctor Diagnosis & Plan Creation]
+            C --> D{Execution Mode?}
+
+            D -->|Online Only| E[Video Prescriptions Assigned]
+            E --> F[Patient Self-Executes]
+
+            D -->|Hybrid Care| G[Geo-Location Check]
+            G --> H{Provider Available < 10km?} H -->|No| I[Fallback to Online Only]
+                H -->|Yes| J[Display Provider Options]
+
+                J --> K{Select Provider Type}
+                K -->|Internal| L[Fixed Price Booking]
+                K -->|External| M[Marketplace Pricing / Negotiation]
+
+                L --> N[Hybrid Session Scheduled]
+                M --> N
+
+                N --> O[Provider Visits Home]
+                O --> P[Supervised Execution Loop]
+                P --> Q[Data Sync to Doctor Dashboard]
         </div>
     </div>
 
@@ -259,22 +257,21 @@ flowchart TD
         <h2>7. LLD: Provider Matching Logic</h2>
         <p>Filter: Radius < 10km. Sort: Internal -> Rated External -> Nearest.</p>
         <div class="mermaid">
-flowchart TD
-    start([Start: Hybrid Request]) --> input[Input: Patient Lat/Long]
-    input --> query[Query Provider Database]
-    
-    query --> filter1{Distance < 10km?}
-    filter1 -- No --> discard[Exclude Provider]
-    filter1 -- Yes --> list[Candidate List]
-    
-    list --> sort1{Sort Criteria}
-    sort1 --> p1[Priority 1: Internal Staff]
-    sort1 --> p2[Priority 2: Rated External > 4.5]
-    sort1 --> p3[Priority 3: Nearest Neighbor]
-    
-    p1 --> result([Output: Sorted Provider List])
-    p2 --> result
-    p3 --> result
+            flowchart TD
+            start([Start: Hybrid Request]) --> input[Input: Patient Lat/Long]
+            input --> query[Query Provider Database]
+
+            query --> filter1{Distance < 10km?} filter1 -- No --> discard[Exclude Provider]
+                filter1 -- Yes --> list[Candidate List]
+
+                list --> sort1{Sort Criteria}
+                sort1 --> p1[Priority 1: Internal Staff]
+                sort1 --> p2[Priority 2: Rated External > 4.5]
+                sort1 --> p3[Priority 3: Nearest Neighbor]
+
+                p1 --> result([Output: Sorted Provider List])
+                p2 --> result
+                p3 --> result
         </div>
     </div>
 
@@ -283,26 +280,26 @@ flowchart TD
         <h2>8. LLD: Pricing Decision Flow</h2>
         <p>Internal = Fixed Rate. External = Dynamic/Negotiated.</p>
         <div class="mermaid">
-flowchart TD
-    A[Provider Selection] --> B{Provider Type?}
-    
-    B -->|Internal / Staff| C[Fetch Standard Rate Card]
-    C --> C1[Zone A: Rs.1000]
-    C --> C2[Zone B: Rs.700]
-    C1 --> D[Final Price Displayed]
-    C2 --> D
-    
-    B -->|External / Partner| E[Fetch Partner Configuration]
-    E --> F{Set Own Price?}
-    
-    F -->|Yes| G[Display Provider Ask Price]
-    F -->|No| H[Apply Platform Recommended Range]
-    
-    G --> I[Patient Accepts?]
-    H --> I
-    
-    I -- Yes --> D
-    I -- No --> J[Negotiation / Re-select]
+            flowchart TD
+            A[Provider Selection] --> B{Provider Type?}
+
+            B -->|Internal / Staff| C[Fetch Standard Rate Card]
+            C --> C1[Zone A: Rs.1000]
+            C --> C2[Zone B: Rs.700]
+            C1 --> D[Final Price Displayed]
+            C2 --> D
+
+            B -->|External / Partner| E[Fetch Partner Configuration]
+            E --> F{Set Own Price?}
+
+            F -->|Yes| G[Display Provider Ask Price]
+            F -->|No| H[Apply Platform Recommended Range]
+
+            G --> I[Patient Accepts?]
+            H --> I
+
+            I -- Yes --> D
+            I -- No --> J[Negotiation / Re-select]
         </div>
     </div>
 
@@ -311,34 +308,34 @@ flowchart TD
         <h2>9. LLD: Payment Sequence & Split</h2>
         <p>Split occurs at Settlement. Platform holds funds until verification.</p>
         <div class="mermaid">
-sequenceDiagram
-    participant P as Patient
-    participant SYS as Platform/Server
-    participant PG as Payment Gateway
-    participant PROV as Provider (Ext)
-    participant DOC as Doctor
+            sequenceDiagram
+            participant P as Patient
+            participant SYS as Platform/Server
+            participant PG as Payment Gateway
+            participant PROV as Provider (Ext)
+            participant DOC as Doctor
 
-    P->>SYS: Selects Hybrid Session (Costs Rs.800)
-    SYS->>PG: Initialize Transaction (Capture Rs.800)
-    PG-->>P: Request Payment
-    P->>PG: Completes Payment
-    PG-->>SYS: Success Webhook
-    
-    SYS->>SYS: Create Transaction Record (Status: HELD)
-    SYS->>PROV: Notify "New Booking Confirmed"
-    
-    Note over P, PROV: Service Delivery Day
-    
-    PROV->>SYS: Mark Session Complete (Upload Verification)
-    SYS->>DOC: Request Clinical Sign-off
-    DOC->>SYS: Approve Session log
-    
-    SYS->>SYS: Trigger Payout Logic
-    SYS->>PG: Transfer Rs.560 to Provider (70%)
-    SYS->>PG: Transfer Rs.120 to Doctor (15%)
-    SYS->>SYS: Retain Rs.120 (15% Platform Fee)
-    
-    SYS-->>P: Send Receipt
+            P->>SYS: Selects Hybrid Session (Costs Rs.800)
+            SYS->>PG: Initialize Transaction (Capture Rs.800)
+            PG-->>P: Request Payment
+            P->>PG: Completes Payment
+            PG-->>SYS: Success Webhook
+
+            SYS->>SYS: Create Transaction Record (Status: HELD)
+            SYS->>PROV: Notify "New Booking Confirmed"
+
+            Note over P, PROV: Service Delivery Day
+
+            PROV->>SYS: Mark Session Complete (Upload Verification)
+            SYS->>DOC: Request Clinical Sign-off
+            DOC->>SYS: Approve Session log
+
+            SYS->>SYS: Trigger Payout Logic
+            SYS->>PG: Transfer Rs.560 to Provider (70%)
+            SYS->>PG: Transfer Rs.120 to Doctor (15%)
+            SYS->>SYS: Retain Rs.120 (15% Platform Fee)
+
+            SYS-->>P: Send Receipt
         </div>
     </div>
 
@@ -347,57 +344,57 @@ sequenceDiagram
         <h2>10. LLD: Data Model (ERD)</h2>
         <p>Polymorphic Roles and ProviderServiceArea entity.</p>
         <div class="mermaid">
-erDiagram
-    Users ||--o{ Roles : has
-    Users {
-        string user_id PK
-        string name
-        string email
-        float wallet_balance
-    }
-    
-    Roles {
-        string role_id PK
-        string user_id FK
-        enum type "DOCTOR, PATIENT, PROVIDER_INT, PROVIDER_EXT"
-        json config "Rates, Availability"
-    }
+            erDiagram
+            Users ||--o{ Roles : has
+            Users {
+            string user_id PK
+            string name
+            string email
+            float wallet_balance
+            }
 
-    ProviderServiceArea {
-        string id PK
-        string role_id FK
-        geography location
-        float radius_km
-    }
+            Roles {
+            string role_id PK
+            string user_id FK
+            enum type "DOCTOR, PATIENT, PROVIDER_INT, PROVIDER_EXT"
+            json config "Rates, Availability"
+            }
 
-    CarePlan ||--o{ Appointment : contains
-    CarePlan {
-        string plan_id PK
-        string doctor_id FK
-        string patient_id FK
-        string diagnosis
-    }
-    
-    Appointment {
-        string appt_id PK
-        string plan_id FK
-        datetime scheduled_time
-        enum mode "ONLINE, HYBRID"
-        string assigned_provider_id FK "Nullable"
-        enum status "SCHEDULED, COMPLETED, VERIFIED"
-    }
-    
-    Transaction {
-        string txn_id PK
-        string appt_id FK
-        float amount
-        json split_details "doc: 15, prov: 70"
-        enum status "HELD, SETTLED"
-    }
+            ProviderServiceArea {
+            string id PK
+            string role_id FK
+            geography location
+            float radius_km
+            }
 
-    Roles ||--o{ ProviderServiceArea : defines
-    Roles ||--o{ Appointment : fulfills
-    Appointment ||--o{ Transaction : generates
+            CarePlan ||--o{ Appointment : contains
+            CarePlan {
+            string plan_id PK
+            string doctor_id FK
+            string patient_id FK
+            string diagnosis
+            }
+
+            Appointment {
+            string appt_id PK
+            string plan_id FK
+            datetime scheduled_time
+            enum mode "ONLINE, HYBRID"
+            string assigned_provider_id FK "Nullable"
+            enum status "SCHEDULED, COMPLETED, VERIFIED"
+            }
+
+            Transaction {
+            string txn_id PK
+            string appt_id FK
+            float amount
+            json split_details "doc: 15, prov: 70"
+            enum status "HELD, SETTLED"
+            }
+
+            Roles ||--o{ ProviderServiceArea : defines
+            Roles ||--o{ Appointment : fulfills
+            Appointment ||--o{ Transaction : generates
         </div>
     </div>
 
