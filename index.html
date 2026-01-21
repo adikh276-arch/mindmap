@@ -53,40 +53,42 @@
     <div class="card">
         <h2>1. Current System: Online-Only Model</h2>
         <div class="mermaid">
-            graph TD
-            subgraph Online_Model ["Online-Only Operations"]
+            flowchart LR
+            subgraph Online_Workflow ["Online-Only Diagram"]
+            direction LR
             P["PATIENT"]
             D["DOCTOR"]
             PLAT["PLATFORM"]
-            end
 
-            D -- "1. Video Consult" --> P
-            D -- "2. Digital Plan" --> PLAT
-            PLAT -- "3. Serve Content" --> P
-            P -- "4. Self-Execution" --> P
-            P -- "5. Log Data" --> PLAT
-            PLAT -- "6. Async Review" --> D
+            P -- "1. Books" --> PLAT
+            PLAT -- "2. Assigns" --> D
+            D -- "3. Video Consult" --> P
+            D -- "4. Digital Plan" --> PLAT
+            PLAT -- "5. Serve Content" --> P
+            P -- "6. Self-Execution" --> PLAT
+            end
         </div>
     </div>
 
     <div class="card">
         <h2>2. Reconfigured System: Hybrid Model</h2>
         <div class="mermaid">
-            graph TD
-            subgraph Hybrid_Model ["Hybrid Configuration"]
+            flowchart LR
+            subgraph Hybrid_Workflow ["Hybrid Configuration"]
+            direction LR
             P["PATIENT"]
             D["DOCTOR"]
             PLAT["PLATFORM"]
             A["ASSISTANT (Proxy)"]
-            end
 
-            D -- "1. Video Consult" --> P
-            D -- "2. Hybrid Plan" --> PLAT
-            PLAT -- "3. Dispatch Job" --> A
-            A -- "4. Visit Patient" --> P
-            A -- "5. Assisted Execution" --> P
-            A -- "6. Verify Data" --> PLAT
-            PLAT -- "7. Verified Review" --> D
+            P -- "1. Books" --> PLAT
+            PLAT -- "2. Assigns" --> D
+            D -- "3. Prescribes Hybrid" --> PLAT
+            PLAT -- "4. Dispatches" --> A
+            A -- "5. Home Visit" --> P
+            A -- "6. Verifies & Logs" --> PLAT
+            PLAT -- "7. Updates" --> D
+            end
         </div>
     </div>
 
@@ -192,15 +194,15 @@
             Rule1 -- "No" --> Reject["Force Online Only"]
             Rule1 -- "Yes" --> Rule2{"Is Provider Available?"}
 
-            Rule2 -- "No < 10km" --> Reject
-                Rule2 -- "Yes" --> Rule3{"Patient Consent?"}
+            Rule2 -- "No Less Than 10km" --> Reject
+            Rule2 -- "Yes" --> Rule3{"Patient Consent?"}
 
-                Rule3 -- "No" --> Reject
-                Rule3 -- "Yes" --> Pricing["Pricing Engine"]
+            Rule3 -- "No" --> Reject
+            Rule3 -- "Yes" --> Pricing["Pricing Engine"]
 
-                Pricing --> Check{"Price Accepted?"}
-                Check -- "Yes" --> Lock["Lock Configuration"]
-                Check -- "No" --> Neg["Negotiate / Re-Match"]
+            Pricing --> Check{"Price Accepted?"}
+            Check -- "Yes" --> Lock["Lock Configuration"]
+            Check -- "No" --> Neg["Negotiate / Re-Match"]
         </div>
     </div>
 
@@ -210,20 +212,21 @@
             flowchart TD
             Start["Request: Lat/Long"] --> DB["Provider DB"]
 
-            DB --> Geo{"Radius < 10km?"} Geo -- "No" --> Drop["Discard"]
-                Geo -- "Yes" --> List["Candidate Pool"]
+            DB --> Geo{"Radius Less Than 10km?"}
+            Geo -- "No" --> Drop["Discard"]
+            Geo -- "Yes" --> List["Candidate Pool"]
 
-                List --> Rank{"Ranking Logic"}
+            List --> Rank{"Ranking Logic"}
 
-                Rank -- "1. Internal" --> Tier1["Tier 1 List"]
-                Rank -- "2. Top Rated" --> Tier2["Tier 2 List"]
-                Rank -- "3. Nearest" --> Tier3["Tier 3 List"]
+            Rank -- "1. Internal" --> Tier1["Tier 1 List"]
+            Rank -- "2. Top Rated" --> Tier2["Tier 2 List"]
+            Rank -- "3. Nearest" --> Tier3["Tier 3 List"]
 
-                Tier1 --> Merge["Final Sorted List"]
-                Tier2 --> Merge
-                Tier3 --> Merge
+            Tier1 --> Merge["Final Sorted List"]
+            Tier2 --> Merge
+            Tier3 --> Merge
 
-                Merge --> Output["Present to Patient"]
+            Merge --> Output["Present to Patient"]
         </div>
     </div>
 
