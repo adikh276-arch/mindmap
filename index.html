@@ -5,7 +5,11 @@
     <title>PhysioMantra Hybrid Architecture Pack</title>
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis' }
+        });
     </script>
     <style>
         body {
@@ -23,6 +27,7 @@
             margin-bottom: 2rem;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
         }
 
         h1 {
@@ -43,6 +48,7 @@
             display: flex;
             justify-content: center;
             padding: 1rem;
+            min-width: 100%;
         }
     </style>
 </head>
@@ -53,6 +59,7 @@
     <div class="card">
         <h2>1. Current System: Online-Only Model</h2>
         <div class="mermaid">
+            %%{init: {'themeVariables': { 'fontSize': '20px'}, 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 50}}}%%
             flowchart LR
             subgraph Online_Workflow ["Online-Only Diagram"]
             direction LR
@@ -73,6 +80,7 @@
     <div class="card">
         <h2>2. Reconfigured System: Hybrid Model</h2>
         <div class="mermaid">
+            %%{init: {'themeVariables': { 'fontSize': '20px'}, 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 50}}}%%
             flowchart LR
             subgraph Hybrid_Workflow ["Hybrid Configuration"]
             direction LR
