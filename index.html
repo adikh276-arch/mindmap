@@ -56,57 +56,69 @@
 <body>
     <h1>PhysioMantra Hybrid Research: Visual Models</h1>
 
-    <!-- SYSTEM 1 -->
+    <!-- SYSTEM 1: Converted from Mindmap to Graph for stability -->
     <div class="card">
         <h2>1. Current System: Online-Only Model</h2>
         <p>Patient executes independently. Feedback is subjective.</p>
         <div class="mermaid">
-            mindmap
-            root((PhysioMantra Online-Only))
-            PATIENT
-            Online Booking
-            Video Consultation
-            Self-Execution of Exercises
-            Self-Reporting Progress
-            DOCTOR
-            Clinical Authority
-            Video Diagnosis
-            Digital Prescription
-            Async Plan Review
-            PLATFORM
-            Booking Engine
-            Video Hosting
-            Exercise Library Content
-            Automated Reminders
+            graph LR
+            root((PhysioMantra<br />Online-Only))
+
+            root --> PATIENT[PATIENT]
+            PATIENT --> P1["Online Booking"]
+            PATIENT --> P2["Video Consultation"]
+            PATIENT --> P3["Self-Execution of Exercises"]
+            PATIENT --> P4["Self-Reporting Progress"]
+
+            root --> DOCTOR[DOCTOR]
+            DOCTOR --> D1["Clinical Authority"]
+            DOCTOR --> D2["Video Diagnosis"]
+            DOCTOR --> D3["Digital Prescription"]
+            DOCTOR --> D4["Async Plan Review"]
+
+            root --> PLATFORM[PLATFORM]
+            PLATFORM --> PL1["Booking Engine"]
+            PLATFORM --> PL2["Video Hosting"]
+            PLATFORM --> PL3["Exercise Library Content"]
+            PLATFORM --> PL4["Automated Reminders"]
+
+            style root fill:#f9f,stroke:#333
         </div>
     </div>
 
-    <!-- SYSTEM 2 -->
+    <!-- SYSTEM 2: Converted from Mindmap to Graph for stability -->
     <div class="card">
         <h2>2. Reconfigured System: Hybrid Model</h2>
         <p>Assistant acts as execution proxy. Clinical authority remains with Doctor.</p>
         <div class="mermaid">
-            mindmap
-            root((PhysioMantra Hybrid Config))
-            PATIENT
-            Online Booking
-            Video Consultation
-            Assisted Execution
-            Physical Safety and Confidence
-            DOCTOR
-            Remains Sole Authority
-            Same Diagnosis Flow
-            Selects Hybrid Mode
-            Reviews Verified Data
-            ASSISTANT
-            Execution Proxy
-            No Clinical Decisions
-            Verifies Form
-            Digital Entry for Patient
-            PLATFORM
-            No New Module
-            Routes Plan to Assistant
-            Unified Data Stream
+            graph LR
+            root((PhysioMantra<br />Hybrid Config))
+
+            root --> PATIENT[PATIENT]
+            PATIENT --> P1["Online Booking"]
+            PATIENT --> P2["Video Consultation"]
+            PATIENT --> P3["Assisted Execution"]
+            PATIENT --> P4["Physical Safety & Confidence"]
+
+            root --> DOCTOR[DOCTOR]
+            DOCTOR --> D1["Remains Sole Authority"]
+            DOCTOR --> D2["Same Diagnosis Flow"]
+            DOCTOR --> D3["Selects 'Hybrid' Mode"]
+            DOCTOR --> D4["Reviews Verified Data"]
+
+            root --> ASSISTANT[ASSISTANT]
+            ASSISTANT --> A1["Execution Proxy"]
+            ASSISTANT --> A2["No Clinical Decisions"]
+            ASSISTANT --> A3["Verifies Form"]
+            ASSISTANT --> A4["Digital Entry for Patient"]
+
+            root --> PLATFORM[PLATFORM]
+            PLATFORM --> PL1["No New Module"]
+            PLATFORM --> PL2["Routes Plan to Assistant"]
+            PLATFORM --> PL3["Unified Data Stream"]
+
+            style root fill:#b3e5fc,stroke:#01579b
+            style ASSISTANT fill:#c8e6c9,stroke:#2e7d32
         </div>
     </div>
 
@@ -117,15 +129,15 @@
         <div class="mermaid">
             flowchart TD
             A([Patient Entry]) --> B{Booking}
-            B -->|Online| C[**Doctor Consultation**<br />Video Call]
-            C --> D[**Care Plan Creation**<br />Digital Exercise Prescription]
+            B -- "Online" --> C["Doctor Consultation<br />Video Call"]
+            C --> D["Care Plan Creation<br />Digital Exercise Prescription"]
 
-            D --> E{**Patient Execution**}
-            E -->|Independent| F[Patient Opens App]
-            F --> G[Patient Watches Video]
-            G --> H[**Patient Attempts Exercise**<br />Subjective Integrity]
-            H --> I[Patient Logs Completion]
-            I --> J[Doctor Dashboard Review]
+            D --> E{Patient Execution}
+            E -- "Independent" --> F["Patient Opens App"]
+            F --> G["Patient Watches Video"]
+            G --> H["Patient Attempts Exercise<br />Subjective Integrity"]
+            H --> I["Patient Logs Completion"]
+            I --> J["Doctor Dashboard Review"]
 
             style E fill:#f9f9f9,stroke:#333
             style H fill:#fff0f0,stroke:#d00,stroke-width:2px,stroke-dasharray: 5 5
@@ -139,21 +151,21 @@
         <div class="mermaid">
             flowchart TD
             A([Patient Entry]) --> B{Booking}
-            B -->|Unchanged| C[**Doctor Consultation**<br />Video Call]
-            C --> D[**Care Plan Creation**<br />Same Object / Same Dashboard]
+            B -- "Unchanged" --> C["Doctor Consultation<br />Video Call"]
+            C --> D["Care Plan Creation<br />Same Object / Same Dashboard"]
 
-            D --> E{**Execution Mode?**<br />Config Switch}
+            D --> E{"Execution Mode?<br />Config Switch"}
 
-            E -->|Standard| F[Online-Only Flow]
+            E -- "Standard" --> F["Online-Only Flow"]
 
-            E -->|**Hybrid Config**| G[**Assistant Assigned**]
-            G --> H[Assistant Visits Patient]
-            H --> I[**Assisted Execution**<br />Assistant Opens Existing App]
+            E -- "Hybrid Config" --> G["Assistant Assigned"]
+            G --> H["Assistant Visits Patient"]
+            H --> I["Assisted Execution<br />Assistant Opens Existing App"]
 
-            I --> J[**Real-time Correction**<br />Tactile Feedback]
-            J --> K[**Verified Completion**<br />Assistant Logs as Proxy]
+            I --> J["Real-time Correction<br />Tactile Feedback"]
+            J --> K["Verified Completion<br />Assistant Logs as Proxy"]
 
-            K --> L[Doctor Dashboard Review]
+            K --> L["Doctor Dashboard Review"]
             F -.-> L
 
             style E fill:#e1f5fe,stroke:#01579b,stroke-width:2px
@@ -164,13 +176,6 @@
             style K fill:#e8f5e9,stroke:#2e7d32
         </div>
     </div>
-
-
-    <!-- ========================================== -->
-    <!-- NEW HLD / LLD SECTION                      -->
-    <!-- ========================================== -->
-
-    <h1>High-Level & Low-Level Design (Hybrid Config)</h1>
 
     <!-- HLD 1 -->
     <div class="card">
@@ -194,19 +199,19 @@
             EXT_PROV["External Provider<br />(Marketplace)"]
             end
 
-            PATIENT -- 1. Books Consult --> CORE
-            CORE -- 2. Assigns --> DOCTOR
-            DOCTOR -- 3. Prescribes Hybrid Plan --> CORE
+            PATIENT -- "1. Books Consult" --> CORE
+            CORE -- "2. Assigns" --> DOCTOR
+            DOCTOR -- "3. Prescribes Hybrid Plan" --> CORE
 
-            CORE -- 4. Query Location --> DISCOVERY
-            DISCOVERY -- 5. Filter < 10km --> MATCHING
-                MATCHING -- 6. Returns Options --> CORE
+            CORE -- "4. Query Location" --> DISCOVERY
+            DISCOVERY -- "5. Filter < 10km" --> MATCHING
+                MATCHING -- "6. Returns Options" --> CORE
 
-                CORE -- 7. Assigns --> INT_PROV
-                CORE -- 7. Assigns --> EXT_PROV
+                CORE -- "7. Assigns" --> INT_PROV
+                CORE -- "7. Assigns" --> EXT_PROV
 
-                INT_PROV -- 8. Executes & Logs --> CORE
-                EXT_PROV -- 8. Executes & Logs --> CORE
+                INT_PROV -- "8. Executes & Logs" --> CORE
+                EXT_PROV -- "8. Executes & Logs" --> CORE
         </div>
     </div>
 
@@ -220,16 +225,16 @@
             B --> C[Doctor Diagnosis & Plan Creation]
             C --> D{"Execution Mode?"}
 
-            D -->|Online Only| E[Video Prescriptions Assigned]
+            D -- "Online Only" --> E[Video Prescriptions Assigned]
             E --> F[Patient Self-Executes]
 
-            D -->|Hybrid Care| G[Geo-Location Check]
-            G --> H{"Provider Available < 10km?"} H -->|No| I[Fallback to Online Only]
-                H -->|Yes| J[Display Provider Options]
+            D -- "Hybrid Care" --> G[Geo-Location Check]
+            G --> H{"Provider Available < 10km?"} H -- "No" --> I[Fallback to Online Only]
+                H -- "Yes" --> J[Display Provider Options]
 
                 J --> K{"Select Provider Type"}
-                K -->|Internal| L[Fixed Price Booking]
-                K -->|External| M[Marketplace Pricing / Negotiation]
+                K -- "Internal" --> L[Fixed Price Booking]
+                K -- "External" --> M[Marketplace Pricing / Negotiation]
 
                 L --> N[Hybrid Session Scheduled]
                 M --> N
@@ -249,13 +254,13 @@
             start([Start: Hybrid Request]) --> input["Input: Patient Lat/Long"]
             input --> query[Query Provider Database]
 
-            query --> filter1{"Distance < 10km?"} filter1 -- No --> discard[Exclude Provider]
-                filter1 -- Yes --> list[Candidate List]
+            query --> filter1{"Distance < 10km?"} filter1 -- "No" --> discard[Exclude Provider]
+                filter1 -- "Yes" --> list[Candidate List]
 
                 list --> sort1{Sort Criteria}
-                sort1 --> p1[Priority 1: Internal Staff]
+                sort1 --> p1["Priority 1: Internal Staff"]
                 sort1 --> p2["Priority 2: Rated External > 4.5"]
-                sort1 --> p3[Priority 3: Nearest Neighbor]
+                sort1 --> p3["Priority 3: Nearest Neighbor"]
 
                 p1 --> result([Output: Sorted Provider List])
                 p2 --> result
@@ -271,23 +276,23 @@
             flowchart TD
             A[Provider Selection] --> B{Provider Type?}
 
-            B -->|Internal / Staff| C[Fetch Standard Rate Card]
-            C --> C1[Zone A: Rs.1000]
-            C --> C2[Zone B: Rs.700]
+            B -- "Internal / Staff" --> C[Fetch Standard Rate Card]
+            C --> C1["Zone A: Rs.1000"]
+            C --> C2["Zone B: Rs.700"]
             C1 --> D[Final Price Displayed]
             C2 --> D
 
-            B -->|External / Partner| E[Fetch Partner Configuration]
+            B -- "External / Partner" --> E[Fetch Partner Configuration]
             E --> F{Set Own Price?}
 
-            F -->|Yes| G[Display Provider Ask Price]
-            F -->|No| H[Apply Platform Recommended Range]
+            F -- "Yes" --> G[Display Provider Ask Price]
+            F -- "No" --> H[Apply Platform Recommended Range]
 
-            G --> I[Patient Accepts?]
+            G --> I{Patient Accepts?}
             H --> I
 
-            I -- Yes --> D
-            I -- No --> J[Negotiation / Re-select]
+            I -- "Yes" --> D
+            I -- "No" --> J["Negotiation / Re-select"]
         </div>
     </div>
 
