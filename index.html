@@ -56,19 +56,18 @@
 <body>
     <h1>PhysioMantra Hybrid Research: Visual Models</h1>
 
-    <!-- SYSTEM 1: Converted from Mindmap to Graph for stability -->
+    <!-- SYSTEM 1 -->
     <div class="card">
         <h2>1. Current System: Online-Only Model</h2>
-        <p>Patient executes independently. Feedback is subjective.</p>
         <div class="mermaid">
             graph LR
-            root((PhysioMantra<br />Online-Only))
+            root((PhysioMantra))
 
             root --> PATIENT[PATIENT]
             PATIENT --> P1["Online Booking"]
             PATIENT --> P2["Video Consultation"]
-            PATIENT --> P3["Self-Execution of Exercises"]
-            PATIENT --> P4["Self-Reporting Progress"]
+            PATIENT --> P3["Self-Execution"]
+            PATIENT --> P4["Self-Report Progress"]
 
             root --> DOCTOR[DOCTOR]
             DOCTOR --> D1["Clinical Authority"]
@@ -79,43 +78,42 @@
             root --> PLATFORM[PLATFORM]
             PLATFORM --> PL1["Booking Engine"]
             PLATFORM --> PL2["Video Hosting"]
-            PLATFORM --> PL3["Exercise Library Content"]
-            PLATFORM --> PL4["Automated Reminders"]
+            PLATFORM --> PL3["Content Library"]
+            PLATFORM --> PL4["Auto Reminders"]
 
             style root fill:#f9f,stroke:#333
         </div>
     </div>
 
-    <!-- SYSTEM 2: Converted from Mindmap to Graph for stability -->
+    <!-- SYSTEM 2 -->
     <div class="card">
         <h2>2. Reconfigured System: Hybrid Model</h2>
-        <p>Assistant acts as execution proxy. Clinical authority remains with Doctor.</p>
         <div class="mermaid">
             graph LR
-            root((PhysioMantra<br />Hybrid Config))
+            root((Hybrid Config))
 
             root --> PATIENT[PATIENT]
             PATIENT --> P1["Online Booking"]
             PATIENT --> P2["Video Consultation"]
             PATIENT --> P3["Assisted Execution"]
-            PATIENT --> P4["Physical Safety & Confidence"]
+            PATIENT --> P4["Physical Safety"]
 
             root --> DOCTOR[DOCTOR]
-            DOCTOR --> D1["Remains Sole Authority"]
-            DOCTOR --> D2["Same Diagnosis Flow"]
-            DOCTOR --> D3["Selects 'Hybrid' Mode"]
-            DOCTOR --> D4["Reviews Verified Data"]
+            DOCTOR --> D1["Sole Authority"]
+            DOCTOR --> D2["Same Diagnosis"]
+            DOCTOR --> D3["Selects 'Hybrid'"]
+            DOCTOR --> D4["Verified Data"]
 
             root --> ASSISTANT[ASSISTANT]
             ASSISTANT --> A1["Execution Proxy"]
-            ASSISTANT --> A2["No Clinical Decisions"]
+            ASSISTANT --> A2["No Decisions"]
             ASSISTANT --> A3["Verifies Form"]
-            ASSISTANT --> A4["Digital Entry for Patient"]
+            ASSISTANT --> A4["Digital Entry"]
 
             root --> PLATFORM[PLATFORM]
             PLATFORM --> PL1["No New Module"]
-            PLATFORM --> PL2["Routes Plan to Assistant"]
-            PLATFORM --> PL3["Unified Data Stream"]
+            PLATFORM --> PL2["Routes Plan"]
+            PLATFORM --> PL3["Unified Stream"]
 
             style root fill:#b3e5fc,stroke:#01579b
             style ASSISTANT fill:#c8e6c9,stroke:#2e7d32
@@ -125,19 +123,18 @@
     <!-- WORKFLOW 1 -->
     <div class="card">
         <h2>3. Current Workflow (Linear)</h2>
-        <p>High drop-off risk at "Patient Execution".</p>
         <div class="mermaid">
             flowchart TD
-            A([Patient Entry]) --> B{Booking}
-            B -- "Online" --> C["Doctor Consultation<br />Video Call"]
-            C --> D["Care Plan Creation<br />Digital Exercise Prescription"]
+            A["Patient Entry"] --> B["Booking"]
+            B -- "Online" --> C["Doctor Consult"]
+            C --> D["Care Plan Creation"]
 
-            D --> E{Patient Execution}
-            E -- "Independent" --> F["Patient Opens App"]
-            F --> G["Patient Watches Video"]
-            G --> H["Patient Attempts Exercise<br />Subjective Integrity"]
-            H --> I["Patient Logs Completion"]
-            I --> J["Doctor Dashboard Review"]
+            D --> E["Patient Execution"]
+            E -- "Independent" --> F["Opens App"]
+            F --> G["Watches Video"]
+            G --> H["Attempts Exercise"]
+            H --> I["Logs Completion"]
+            I --> J["Doctor Review"]
 
             style E fill:#f9f9f9,stroke:#333
             style H fill:#fff0f0,stroke:#d00,stroke-width:2px,stroke-dasharray: 5 5
@@ -147,28 +144,27 @@
     <!-- WORKFLOW 2 -->
     <div class="card">
         <h2>4. Hybrid Workflow (Layered)</h2>
-        <p>Assistant injects into the execution loop without breaking existing flow.</p>
         <div class="mermaid">
             flowchart TD
-            A([Patient Entry]) --> B{Booking}
-            B -- "Unchanged" --> C["Doctor Consultation<br />Video Call"]
-            C --> D["Care Plan Creation<br />Same Object / Same Dashboard"]
+            A["Patient Entry"] --> B["Booking"]
+            B -- "Unchanged" --> C["Doctor Consult"]
+            C --> D["Care Plan Creation"]
 
-            D --> E{"Execution Mode?<br />Config Switch"}
+            D --> E["Execution Mode?"]
 
-            E -- "Standard" --> F["Online-Only Flow"]
+            E -- "Standard" --> F["Online Flow"]
 
-            E -- "Hybrid Config" --> G["Assistant Assigned"]
-            G --> H["Assistant Visits Patient"]
-            H --> I["Assisted Execution<br />Assistant Opens Existing App"]
+            E -- "Hybrid" --> G["Assistant Assigned"]
+            G --> H["Assistant Visit"]
+            H --> I["Assisted Execution"]
 
-            I --> J["Real-time Correction<br />Tactile Feedback"]
-            J --> K["Verified Completion<br />Assistant Logs as Proxy"]
+            I --> J["Real-time Correction"]
+            J --> K["Verified Completion"]
 
-            K --> L["Doctor Dashboard Review"]
+            K --> L["Doctor Review"]
             F -.-> L
 
-            style E fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+            style E fill:#e1f5fe,stroke:#01579b
             style G fill:#e8f5e9,stroke:#2e7d32
             style H fill:#e8f5e9,stroke:#2e7d32
             style I fill:#e8f5e9,stroke:#2e7d32
@@ -180,89 +176,86 @@
     <!-- HLD 1 -->
     <div class="card">
         <h2>5. HLD: System Ecosystem</h2>
-        <p>Hybrid is a service extension, not a new module.</p>
         <div class="mermaid">
             flowchart LR
             subgraph Core["Core Ecosystem"]
-            PATIENT[Patient Node]
-            DOCTOR[Doctor Node]
-            CORE[PhysioMantra Core Platform]
+            P["Patient"]
+            D["Doctor"]
+            C["Platform Core"]
             end
 
-            subgraph Extensions["Hybrid Extension Services"]
-            DISCOVERY[Provider Discovery Service]
-            MATCHING[Geo-Spatial Matching Engine]
+            subgraph Ext["Extensions"]
+            DIS["Discovery Service"]
+            MAT["Matching Engine"]
             end
 
-            subgraph Execution["Execution Layer"]
-            INT_PROV["Internal Provider<br />(Salaried)"]
-            EXT_PROV["External Provider<br />(Marketplace)"]
+            subgraph Exec["Execution"]
+            IP["Internal Provider"]
+            EP["External Provider"]
             end
 
-            PATIENT -- "1. Books Consult" --> CORE
-            CORE -- "2. Assigns" --> DOCTOR
-            DOCTOR -- "3. Prescribes Hybrid Plan" --> CORE
+            P -- "1. Books" --> C
+            C -- "2. Assigns" --> D
+            D -- "3. Prescribes" --> C
 
-            CORE -- "4. Query Location" --> DISCOVERY
-            DISCOVERY -- "5. Filter < 10km" --> MATCHING
-                MATCHING -- "6. Returns Options" --> CORE
+            C -- "4. Query Loc" --> DIS
+            DIS -- "5. Filter < 10km" --> MAT
+                MAT -- "6. Return Opts" --> C
 
-                CORE -- "7. Assigns" --> INT_PROV
-                CORE -- "7. Assigns" --> EXT_PROV
+                C -- "7. Assigns" --> IP
+                C -- "7. Assigns" --> EP
 
-                INT_PROV -- "8. Executes & Logs" --> CORE
-                EXT_PROV -- "8. Executes & Logs" --> CORE
+                IP -- "8. Logs" --> C
+                EP -- "8. Logs" --> C
         </div>
     </div>
 
     <!-- HLD 2 -->
     <div class="card">
         <h2>6. HLD: Unified Booking Flow</h2>
-        <p>Single entry point. Execution forks only after Diagnosis.</p>
         <div class="mermaid">
             flowchart TD
-            A([Patient Entry]) --> B[Book Online Consultation]
-            B --> C[Doctor Diagnosis & Plan Creation]
+            A["Patient Entry"] --> B["Book Online"]
+            B --> C["Diagnosis & Plan"]
             C --> D{"Execution Mode?"}
 
-            D -- "Online Only" --> E[Video Prescriptions Assigned]
-            E --> F[Patient Self-Executes]
+            D -- "Online" --> E["Video Rx"]
+            E --> F["Self-Execute"]
 
-            D -- "Hybrid Care" --> G[Geo-Location Check]
-            G --> H{"Provider Available < 10km?"} H -- "No" --> I[Fallback to Online Only]
-                H -- "Yes" --> J[Display Provider Options]
+            D -- "Hybrid" --> G["Geo Check"]
+            G --> H{"Provider < 10km?"} H -- "No" --> I["Fallback Online"]
+                H -- "Yes" --> J["Show Providers"]
 
-                J --> K{"Select Provider Type"}
-                K -- "Internal" --> L[Fixed Price Booking]
-                K -- "External" --> M[Marketplace Pricing / Negotiation]
+                J --> K{"Select Type"}
+                K -- "Internal" --> L["Fixed Price"]
+                K -- "External" --> M["Market Price"]
 
-                L --> N[Hybrid Session Scheduled]
+                L --> N["Session Scheduled"]
                 M --> N
 
-                N --> O[Provider Visits Home]
-                O --> P[Supervised Execution Loop]
-                P --> Q[Data Sync to Doctor Dashboard]
+                N --> O["Home Visit"]
+                O --> P["Supervised Loop"]
+                P --> Q["Sync Dashboard"]
         </div>
     </div>
 
     <!-- LLD 1 -->
     <div class="card">
         <h2>7. LLD: Provider Matching Logic</h2>
-        <p>Filter: Radius < 10km. Sort: Internal -> Rated External -> Nearest.</p>
         <div class="mermaid">
             flowchart TD
-            start([Start: Hybrid Request]) --> input["Input: Patient Lat/Long"]
-            input --> query[Query Provider Database]
+            start["Hybrid Request"] --> input["Input: Lat/Long"]
+            input --> query["Query DB"]
 
-            query --> filter1{"Distance < 10km?"} filter1 -- "No" --> discard[Exclude Provider]
-                filter1 -- "Yes" --> list[Candidate List]
+            query --> filter1{"Distance < 10km?"} filter1 -- "No" --> discard["Exclude"]
+                filter1 -- "Yes" --> list["Candidate List"]
 
-                list --> sort1{Sort Criteria}
-                sort1 --> p1["Priority 1: Internal Staff"]
-                sort1 --> p2["Priority 2: Rated External > 4.5"]
-                sort1 --> p3["Priority 3: Nearest Neighbor"]
+                list --> sort1{"Sort Criteria"}
+                sort1 -- "Priority 1" --> p1["Internal Staff"]
+                sort1 -- "Priority 2" --> p2["Rated Ext > 4.5"]
+                sort1 -- "Priority 3" --> p3["Nearest"]
 
-                p1 --> result([Output: Sorted Provider List])
+                p1 --> result["Output List"]
                 p2 --> result
                 p3 --> result
         </div>
@@ -271,118 +264,105 @@
     <!-- LLD 2 -->
     <div class="card">
         <h2>8. LLD: Pricing Decision Flow</h2>
-        <p>Internal = Fixed Rate. External = Dynamic/Negotiated.</p>
         <div class="mermaid">
             flowchart TD
-            A[Provider Selection] --> B{Provider Type?}
+            A["Select Provider"] --> B{"Type?"}
 
-            B -- "Internal / Staff" --> C[Fetch Standard Rate Card]
-            C --> C1["Zone A: Rs.1000"]
-            C --> C2["Zone B: Rs.700"]
-            C1 --> D[Final Price Displayed]
+            B -- "Internal" --> C["Fetch Rate Card"]
+            C --> C1["Zone A: 1000"]
+            C --> C2["Zone B: 700"]
+            C1 --> D["Display Price"]
             C2 --> D
 
-            B -- "External / Partner" --> E[Fetch Partner Configuration]
-            E --> F{Set Own Price?}
+            B -- "External" --> E["Fetch Config"]
+            E --> F{"Set Own Price?"}
 
-            F -- "Yes" --> G[Display Provider Ask Price]
-            F -- "No" --> H[Apply Platform Recommended Range]
+            F -- "Yes" --> G["Display Ask Price"]
+            F -- "No" --> H["Apply Range"]
 
-            G --> I{Patient Accepts?}
+            G --> I{"Accepts?"}
             H --> I
 
             I -- "Yes" --> D
-            I -- "No" --> J["Negotiation / Re-select"]
+            I -- "No" --> J["Negotiate"]
         </div>
     </div>
 
     <!-- LLD 3 -->
     <div class="card">
-        <h2>9. LLD: Payment Sequence & Split</h2>
-        <p>Split occurs at Settlement. Platform holds funds until verification.</p>
+        <h2>9. LLD: Payment Sequence</h2>
         <div class="mermaid">
             sequenceDiagram
             participant P as Patient
-            participant SYS as Platform/Server
-            participant PG as Payment Gateway
-            participant PROV as Provider (Ext)
+            participant SYS as Platform
+            participant PG as Gateway
+            participant PROV as Provider
             participant DOC as Doctor
 
-            P->>SYS: Selects Hybrid Session (Costs Rs.800)
-            SYS->>PG: Initialize Transaction (Capture Rs.800)
-            PG-->>P: Request Payment
-            P->>PG: Completes Payment
-            PG-->>SYS: Success Webhook
+            P->>SYS: Select Hybrid (800)
+            SYS->>PG: Init Transaction
+            PG-->>P: Request Pay
+            P->>PG: Pays
+            PG-->>SYS: Webhook Success
 
-            SYS->>SYS: Create Transaction Record (Status: HELD)
-            SYS->>PROV: Notify "New Booking Confirmed"
+            SYS->>SYS: Record (Status: HELD)
+            SYS->>PROV: Notify Booking
 
-            Note over P, PROV: Service Delivery Day
+            Note over P, PROV: Delivery Day
 
-            PROV->>SYS: Mark Session Complete (Upload Verification)
-            SYS->>DOC: Request Clinical Sign-off
-            DOC->>SYS: Approve Session log
+            PROV->>SYS: Mark Complete
+            SYS->>DOC: Request Sign-off
+            DOC->>SYS: Approve
 
-            SYS->>SYS: Trigger Payout Logic
-            SYS->>PG: Transfer Rs.560 to Provider (70%)
-            SYS->>PG: Transfer Rs.120 to Doctor (15%)
-            SYS->>SYS: Retain Rs.120 (15% Platform Fee)
+            SYS->>SYS: Payout Logic
+            SYS->>PG: Transfer 560 (Prov)
+            SYS->>PG: Transfer 120 (Doc)
+            SYS->>SYS: Retain 120 (Fee)
 
-            SYS-->>P: Send Receipt
+            SYS-->>P: Receipt
         </div>
     </div>
 
     <!-- LLD 4 -->
     <div class="card">
-        <h2>10. LLD: Data Model (ERD)</h2>
-        <p>Polymorphic Roles and ProviderServiceArea entity.</p>
+        <h2>10. LLD: Data Model</h2>
         <div class="mermaid">
             erDiagram
             Users ||--o{ Roles : has
             Users {
             string user_id PK
             string name
-            string email
-            float wallet_balance
+            float wallet
             }
 
             Roles {
             string role_id PK
-            string user_id FK
-            enum type "DOCTOR, PATIENT, PROVIDER_INT, PROVIDER_EXT"
-            json config "Rates, Availability"
+            enum type "DOC, PAT, INT, EXT"
+            json config
             }
 
             ProviderServiceArea {
             string id PK
-            string role_id FK
             geography location
-            float radius_km
+            float radius
             }
 
             CarePlan ||--o{ Appointment : contains
             CarePlan {
             string plan_id PK
-            string doctor_id FK
-            string patient_id FK
             string diagnosis
             }
 
             Appointment {
             string appt_id PK
-            string plan_id FK
-            datetime scheduled_time
             enum mode "ONLINE, HYBRID"
-            string assigned_provider_id FK "Nullable"
-            enum status "SCHEDULED, COMPLETED, VERIFIED"
+            enum status "SCHEDULED, DONE"
             }
 
             Transaction {
             string txn_id PK
-            string appt_id FK
             float amount
-            json split_details "doc: 15, prov: 70"
-            enum status "HELD, SETTLED"
+            json split
             }
 
             Roles ||--o{ ProviderServiceArea : defines
@@ -390,7 +370,6 @@
             Appointment ||--o{ Transaction : generates
         </div>
     </div>
-
 </body>
 
 </html>
