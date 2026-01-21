@@ -199,14 +199,14 @@
             D -- "3. Prescribes" --> C
 
             C -- "4. Query Loc" --> DIS
-            DIS -- "5. Filter < 10km" --> MAT
-                MAT -- "6. Return Opts" --> C
+            DIS -- "5. Filter Less Than 10km" --> MAT
+            MAT -- "6. Return Opts" --> C
 
-                C -- "7. Assigns" --> IP
-                C -- "7. Assigns" --> EP
+            C -- "7. Assigns" --> IP
+            C -- "7. Assigns" --> EP
 
-                IP -- "8. Logs" --> C
-                EP -- "8. Logs" --> C
+            IP -- "8. Logs" --> C
+            EP -- "8. Logs" --> C
         </div>
     </div>
 
@@ -223,19 +223,21 @@
             E --> F["Self-Execute"]
 
             D -- "Hybrid" --> G["Geo Check"]
-            G --> H{"Provider < 10km?"} H -- "No" --> I["Fallback Online"]
-                H -- "Yes" --> J["Show Providers"]
+            G --> H{"Provider Less Than 10km?"}
 
-                J --> K{"Select Type"}
-                K -- "Internal" --> L["Fixed Price"]
-                K -- "External" --> M["Market Price"]
+            H -- "No" --> I["Fallback Online"]
+            H -- "Yes" --> J["Show Providers"]
 
-                L --> N["Session Scheduled"]
-                M --> N
+            J --> K{"Select Type"}
+            K -- "Internal" --> L["Fixed Price"]
+            K -- "External" --> M["Market Price"]
 
-                N --> O["Home Visit"]
-                O --> P["Supervised Loop"]
-                P --> Q["Sync Dashboard"]
+            L --> N["Session Scheduled"]
+            M --> N
+
+            N --> O["Home Visit"]
+            O --> P["Supervised Loop"]
+            P --> Q["Sync Dashboard"]
         </div>
     </div>
 
@@ -247,17 +249,18 @@
             start["Hybrid Request"] --> input["Input: Lat/Long"]
             input --> query["Query DB"]
 
-            query --> filter1{"Distance < 10km?"} filter1 -- "No" --> discard["Exclude"]
-                filter1 -- "Yes" --> list["Candidate List"]
+            query --> filter1{"Distance Less Than 10km?"}
+            filter1 -- "No" --> discard["Exclude"]
+            filter1 -- "Yes" --> list["Candidate List"]
 
-                list --> sort1{"Sort Criteria"}
-                sort1 -- "Priority 1" --> p1["Internal Staff"]
-                sort1 -- "Priority 2" --> p2["Rated Ext > 4.5"]
-                sort1 -- "Priority 3" --> p3["Nearest"]
+            list --> sort1{"Sort Criteria"}
+            sort1 -- "Priority 1" --> p1["Internal Staff"]
+            sort1 -- "Priority 2" --> p2["Rated Ext > 4.5"]
+            sort1 -- "Priority 3" --> p3["Nearest"]
 
-                p1 --> result["Output List"]
-                p2 --> result
-                p3 --> result
+            p1 --> result["Output List"]
+            p2 --> result
+            p3 --> result
         </div>
     </div>
 
