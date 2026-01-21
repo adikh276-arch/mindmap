@@ -61,28 +61,23 @@
         <h2>1. Current System: Online-Only Model</h2>
         <p>Patient executes independently. Feedback is subjective.</p>
         <div class="mermaid">
-            graph LR
-            root((PhysioMantra<br />Online-Only))
-
-            root --> PATIENT[PATIENT]
-            PATIENT --> P1(Online Booking)
-            PATIENT --> P2(Video Consultation)
-            PATIENT --> P3(Self-Execution of Exercises)
-            PATIENT --> P4(Self-Reporting Progress)
-
-            root --> DOCTOR[DOCTOR]
-            DOCTOR --> D1(Clinical Authority)
-            DOCTOR --> D2(Video Diagnosis)
-            DOCTOR --> D3(Digital Prescription)
-            DOCTOR --> D4(Async Plan Review)
-
-            root --> PLATFORM[PLATFORM]
-            PLATFORM --> PL1(Booking Engine)
-            PLATFORM --> PL2(Video Hosting)
-            PLATFORM --> PL3(Exercise Library Content)
-            PLATFORM --> PL4(Automated Reminders)
-
-            style root fill:#f9f,stroke:#333
+            mindmap
+            root((PhysioMantra Online-Only))
+            PATIENT
+            Online Booking
+            Video Consultation
+            Self-Execution of Exercises
+            Self-Reporting Progress
+            DOCTOR
+            Clinical Authority
+            Video Diagnosis
+            Digital Prescription
+            Async Plan Review
+            PLATFORM
+            Booking Engine
+            Video Hosting
+            Exercise Library Content
+            Automated Reminders
         </div>
     </div>
 
@@ -91,34 +86,27 @@
         <h2>2. Reconfigured System: Hybrid Model</h2>
         <p>Assistant acts as execution proxy. Clinical authority remains with Doctor.</p>
         <div class="mermaid">
-            graph LR
-            root((PhysioMantra<br />Hybrid Config))
-
-            root --> PATIENT[PATIENT]
-            PATIENT --> P1(Online Booking)
-            PATIENT --> P2(Video Consultation)
-            PATIENT --> P3(Assisted Executiom)
-            PATIENT --> P4(Physical Safety & Confidence)
-
-            root --> DOCTOR[DOCTOR]
-            DOCTOR --> D1(Remains Sole Authority)
-            DOCTOR --> D2(Same Diagnosis Flow)
-            DOCTOR --> D3(Selects 'Hybrid' Mode)
-            DOCTOR --> D4(Reviews Verified Data)
-
-            root --> ASSISTANT[ASSISTANT]
-            ASSISTANT --> A1(Execution Proxy)
-            ASSISTANT --> A2(No Clinical Decisions)
-            ASSISTANT --> A3(Verifies Form)
-            ASSISTANT --> A4(Digital Entry for Patient)
-
-            root --> PLATFORM[PLATFORM]
-            PLATFORM --> PL1(No New Module)
-            PLATFORM --> PL2(Routes Plan to Assistant)
-            PLATFORM --> PL3(Unified Data Stream)
-
-            style root fill:#b3e5fc,stroke:#01579b
-            style ASSISTANT fill:#c8e6c9,stroke:#2e7d32
+            mindmap
+            root((PhysioMantra Hybrid Config))
+            PATIENT
+            Online Booking
+            Video Consultation
+            Assisted Execution
+            Physical Safety and Confidence
+            DOCTOR
+            Remains Sole Authority
+            Same Diagnosis Flow
+            Selects Hybrid Mode
+            Reviews Verified Data
+            ASSISTANT
+            Execution Proxy
+            No Clinical Decisions
+            Verifies Form
+            Digital Entry for Patient
+            PLATFORM
+            No New Module
+            Routes Plan to Assistant
+            Unified Data Stream
         </div>
     </div>
 
@@ -230,16 +218,16 @@
             flowchart TD
             A([Patient Entry]) --> B[Book Online Consultation]
             B --> C[Doctor Diagnosis & Plan Creation]
-            C --> D{Execution Mode?}
+            C --> D{"Execution Mode?"}
 
             D -->|Online Only| E[Video Prescriptions Assigned]
             E --> F[Patient Self-Executes]
 
             D -->|Hybrid Care| G[Geo-Location Check]
-            G --> H{Provider Available < 10km?} H -->|No| I[Fallback to Online Only]
+            G --> H{"Provider Available < 10km?"} H -->|No| I[Fallback to Online Only]
                 H -->|Yes| J[Display Provider Options]
 
-                J --> K{Select Provider Type}
+                J --> K{"Select Provider Type"}
                 K -->|Internal| L[Fixed Price Booking]
                 K -->|External| M[Marketplace Pricing / Negotiation]
 
@@ -258,15 +246,15 @@
         <p>Filter: Radius < 10km. Sort: Internal -> Rated External -> Nearest.</p>
         <div class="mermaid">
             flowchart TD
-            start([Start: Hybrid Request]) --> input[Input: Patient Lat/Long]
+            start([Start: Hybrid Request]) --> input["Input: Patient Lat/Long"]
             input --> query[Query Provider Database]
 
-            query --> filter1{Distance < 10km?} filter1 -- No --> discard[Exclude Provider]
+            query --> filter1{"Distance < 10km?"} filter1 -- No --> discard[Exclude Provider]
                 filter1 -- Yes --> list[Candidate List]
 
                 list --> sort1{Sort Criteria}
                 sort1 --> p1[Priority 1: Internal Staff]
-                sort1 --> p2[Priority 2: Rated External > 4.5]
+                sort1 --> p2["Priority 2: Rated External > 4.5"]
                 sort1 --> p3[Priority 3: Nearest Neighbor]
 
                 p1 --> result([Output: Sorted Provider List])
